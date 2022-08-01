@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DappTest</string>
+    <string name="url_dapp">Url Dapp</string>
+    <string name="name">Name</string>
+    <string name="url_logo">Url logo</string>
+    <string name="connect_wallet_mode_debug">Connect wallet debug</string>
+    <string name="connect_wallet_mode_release">Connect wallet release</string>
+    <string name="code">Code</string>
+    <string name="message">Message</string>
+    <string name="address">Address</string>
+    <string name="get_data">get data</string>
+
+</resources>
