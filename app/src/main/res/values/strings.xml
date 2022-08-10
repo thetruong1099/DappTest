@@ -9,5 +9,9 @@
     <string name="message">Message</string>
     <string name="address">Address</string>
     <string name="get_data">get data</string>
+    <string name="send_token">Send Token</string>
+    <string name="send_nft">send nft</string>
+    <string name="sell_nft">Sell Nft</string>
+    <string name="buy_nft">buy nft</string>
 
 </resources>

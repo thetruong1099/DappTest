@@ -1,5 +1,10 @@
 package com.dapp
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +13,15 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import com.dapp.databinding.ActivityMainBinding
+import com.google.gson.Gson
 import com.panwallet.sdk.config.*
 import com.panwallet.sdk.connection.PanWalletManager
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private var myReceiver: MyBroadcastReceiver? = null
 
     private val arrayChain = arrayListOf(
         BlockChain.BITCOIN.symbol,
@@ -35,9 +43,23 @@ class MainActivity : AppCompatActivity() {
 
         connectDebug()
 
-        connectRelease()
+        registerReceiver()
 
-        Log.d("aaaa", "onCreate: ")
+        sendNft()
+
+        testConnect()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getDataOpening()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        myReceiver?.let { it ->
+            unregisterReceiver(it)
+        }
     }
 
     private fun setSpinner() {
@@ -93,15 +115,9 @@ class MainActivity : AppCompatActivity() {
                     BuildConfig.APPLICATION_ID
                 )
 
-                Log.d("testDapp", "connectDebug: ${config.applicationID}")
+                PanWalletManager.getInstance().setConfig(config, this)
 
-                val panConnection = PanWalletManager()
-
-                panConnection.setConfig(config, this)
-
-                Log.d("testDapp", "connect: $chain")
-
-                panConnection.connectToWallet(chain, this)
+                PanWalletManager.getInstance().connectToWallet(chain, this)
 
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
@@ -116,30 +132,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun connectRelease() {
-        binding.btnConnectModeRelease.setOnClickListener {
+    private fun sendNft() {
+        binding.btnSendNft.setOnClickListener {
+
             try {
-                val config = ConfigWalletService(
-                    "Dapp Test",
-                    "app://com.dapp",
-                    "https://ddsolution.co/",
-                    null,
-                    BuildMode.RELEASE,
-                    null,
-                    DebugConfig(Ethereum.ROPSTEN, Solana.TEST_NET),
-                    BuildConfig.APPLICATION_ID
+                PanWalletManager.getInstance().requestSendNFT(
+                    this, "ETH", "0x001313464",
+                    NFT("1", "https://", "asd", null),
+                    Gson().toJson(TransactionData("0000000", null, null, "0x00000000"))
                 )
-
-                Log.d("testDapp", "connectDebug: ${config.applicationID}")
-
-                val panConnection = PanWalletManager()
-
-                panConnection.setConfig(config, this)
-
-                Log.d("testDapp", "connect: $chain")
-
-                panConnection.connectToWallet(chain, this)
-
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
 
@@ -153,24 +154,56 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getDataOpening()
-        Log.d("aaaa", "onResume: ")
+    private fun testConnect() {
+        binding.btnSendToken.setOnClickListener {
+            //Declare data send
+            val i = Intent()
+            i.putExtra("data", "Duong Vu Tru")
+            i.action = "com.panwallet.data"
+
+            //Declare open app
+            var intent: Intent? =
+                this.applicationContext.packageManager.getLaunchIntentForPackage(packageName)
+            if (intent != null) {
+                intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("app://com.moveplus.app.debug")
+                intent.putExtra("data", "Duong Vu Tru")
+            }
+            intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+            //open app
+            this.applicationContext.startActivity(intent)
+            //send data
+            applicationContext.sendBroadcast(i)
+        }
     }
 
     private fun getDataOpening() {
-        val data = intent.data
-        Log.d("testDapp", "getDataOpening uri: $data")
         try {
-            val panConnection = PanWalletManager()
-            panConnection.getDataResponse(this@MainActivity)?.let { data ->
+            val panConnection = PanWalletManager.getInstance()
+            panConnection.getDataResponse(this, intent).let { data ->
                 binding.tvCode.text = data.code.toString()
                 binding.tvMessage.text = data.message
                 binding.tvAddress.text = data.data["address"]
             }
         } catch (e: Exception) {
             Log.d("testDapp", "Exception: ${e.message}")
+        }
+    }
+
+    private fun registerReceiver() {
+        myReceiver = MyBroadcastReceiver()
+        val intentFilter = IntentFilter(PanWalletManager.getInstance().getActionNameBroadcast())
+        registerReceiver(myReceiver, intentFilter)
+    }
+
+    private class MyBroadcastReceiver : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            if (p0 != null && p1 != null) {
+                val response = PanWalletManager.getInstance().getDataResponse(p0, p1)
+                Log.d("testApp", "onReceive: $response")
+            }
+
         }
     }
 
