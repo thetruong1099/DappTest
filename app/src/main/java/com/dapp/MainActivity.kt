@@ -134,12 +134,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun sendNft() {
         binding.btnSendNft.setOnClickListener {
+            val transaction = mutableMapOf<String, String>()
+            transaction["data"] = ""
+            transaction["from"] = ""
 
             try {
                 PanWalletManager.getInstance().requestSendNFT(
                     this, "ETH", "0x001313464",
-                    NFT("1", "https://", "asd", null),
-                    Gson().toJson(TransactionData("0000000", null, null, "0x00000000"))
+                    NFT("1", "https://", "asd", 0.5f),
+                    transaction
                 )
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
