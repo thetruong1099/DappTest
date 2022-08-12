@@ -45,9 +45,10 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver()
 
+        sendToken()
         sendNft()
 
-        testConnect()
+//        testConnect()
     }
 
     override fun onResume() {
@@ -132,6 +133,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun sendToken() {
+        binding.btnSendToken.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestTransferToken(
+                    "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                    null,
+                    0.5f,
+                    BlockChain.ETHEREUM,
+                    this
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
     private fun sendNft() {
         binding.btnSendNft.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
@@ -157,7 +181,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun testConnect() {
+    /*private fun testConnect() {
         binding.btnSendToken.setOnClickListener {
             //Declare data send
             val i = Intent()
@@ -179,7 +203,7 @@ class MainActivity : AppCompatActivity() {
             //send data
             applicationContext.sendBroadcast(i)
         }
-    }
+    }*/
 
     private fun getDataOpening() {
         try {
