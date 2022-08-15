@@ -39,16 +39,24 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        setSpinner()
+        setChain()
 
-        connectDebug()
+        setConfig()
 
         registerReceiver()
 
+        connectDebug()
         sendToken()
+        approveBuyNft()
+        approveSellNft()
         sendNft()
-
-//        testConnect()
+        buyNft()
+        sellNft()
+        approveDeposit()
+        deposit()
+        approveUnlockBox()
+        unlockBox()
+        openbox()
     }
 
     override fun onResume() {
@@ -63,61 +71,50 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setSpinner() {
-        val spinnerAdapter =
-            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, arrayChain)
-
-        binding.spinnerChain.apply {
-            adapter = spinnerAdapter
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    when (arrayChain[p2]) {
-                        BlockChain.BITCOIN.symbol -> {
-                            chain = BlockChain.BITCOIN
-                        }
-
-                        BlockChain.ETHEREUM.symbol -> {
-                            chain = BlockChain.ETHEREUM
-                        }
-
-                        BlockChain.BINANCE_SMART_CHAIN.symbol -> {
-                            chain = BlockChain.BINANCE_SMART_CHAIN
-                        }
-
-                        BlockChain.SOLANA.symbol -> {
-                            chain = BlockChain.SOLANA
-                        }
-
-                        else -> {
-                            chain = BlockChain.BITCOIN
-                        }
-                    }
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    TODO("Not yet implemented")
-                }
-
-            }
+    private fun setChain() {
+        if (this::chain.isInitialized) {
+            binding.tvChainConnect.text = chain.symbol
         }
+
+        binding.btnBtc.setOnClickListener {
+            chain = BlockChain.BITCOIN
+            binding.tvChainConnect.text = chain.symbol
+        }
+
+        binding.btnEth.setOnClickListener {
+            chain = BlockChain.ETHEREUM
+            binding.tvChainConnect.text = chain.symbol
+        }
+
+        binding.btnBsc.setOnClickListener {
+            chain = BlockChain.BINANCE_SMART_CHAIN
+            binding.tvChainConnect.text = chain.symbol
+        }
+
+        binding.btnSol.setOnClickListener {
+            chain = BlockChain.SOLANA
+            binding.tvChainConnect.text = chain.symbol
+        }
+    }
+
+    private fun setConfig() {
+        val config = ConfigWalletService(
+            "Dapp Test",
+            "app://com.dapp",
+            "https://ddsolution.co/",
+            null,
+            BuildMode.DEBUG,
+            null,
+            DebugConfig(Ethereum.ROPSTEN, Solana.TEST_NET),
+            BuildConfig.APPLICATION_ID
+        )
+
+        PanWalletManager.getInstance().setConfig(config, this)
     }
 
     private fun connectDebug() {
         binding.btnConnectModeDebug.setOnClickListener {
             try {
-                val config = ConfigWalletService(
-                    "Dapp Test",
-                    "app://com.dapp",
-                    "https://ddsolution.co/",
-                    null,
-                    BuildMode.DEBUG,
-                    null,
-                    DebugConfig(Ethereum.ROPSTEN, Solana.TEST_NET),
-                    BuildConfig.APPLICATION_ID
-                )
-
-                PanWalletManager.getInstance().setConfig(config, this)
-
                 PanWalletManager.getInstance().connectToWallet(chain, this)
 
             } catch (e: Exception) {
@@ -137,11 +134,59 @@ class MainActivity : AppCompatActivity() {
         binding.btnSendToken.setOnClickListener {
             try {
                 PanWalletManager.getInstance().requestTransferToken(
-                    "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                    this,
                     null,
                     0.5f,
-                    BlockChain.ETHEREUM,
-                    this
+                    "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun approveBuyNft() {
+        val transaction = mutableMapOf<String, Any>()
+        transaction["data"] = "0x1111"
+
+        binding.btnApprovedBuyNft.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestApproveBuyNft(
+                    this,
+                    "0x00",
+                    "MOP",
+                    transaction
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun approveSellNft() {
+        val transaction = mutableMapOf<String, Any>()
+        transaction["data"] = "0x1111"
+
+        binding.btnApprovedSellNft.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestApproveSellNft(
+                    this,
+                    "0x00",
+                    transaction
                 )
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
@@ -181,29 +226,183 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /*private fun testConnect() {
-        binding.btnSendToken.setOnClickListener {
-            //Declare data send
-            val i = Intent()
-            i.putExtra("data", "Duong Vu Tru")
-            i.action = "com.panwallet.data"
+    private fun buyNft() {
+        binding.btnBuyNft.setOnClickListener {
+            val transaction = mutableMapOf<String, String>()
+            transaction["data"] = ""
+            transaction["from"] = ""
 
-            //Declare open app
-            var intent: Intent? =
-                this.applicationContext.packageManager.getLaunchIntentForPackage(packageName)
-            if (intent != null) {
-                intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("app://com.moveplus.app.debug")
-                intent.putExtra("data", "Duong Vu Tru")
+            try {
+                PanWalletManager.getInstance().requestBuyNFT(
+                    this, "ETH", "0x001313464",
+                    NFT("1", "https://", "asd", 0.5f),
+                    transaction
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
             }
-            intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-            //open app
-            this.applicationContext.startActivity(intent)
-            //send data
-            applicationContext.sendBroadcast(i)
         }
-    }*/
+    }
+
+    private fun sellNft() {
+        binding.btnBuyNft.setOnClickListener {
+            val transaction = mutableMapOf<String, String>()
+            transaction["data"] = ""
+            transaction["from"] = ""
+
+            try {
+                PanWalletManager.getInstance().requestSellNFT(
+                    this, "ETH", "0x001313464",
+                    NFT("1", "https://", "asd", 0.5f),
+                    transaction
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun approveDeposit() {
+        binding.btnApprovedDeposit.setOnClickListener {
+            val transaction = mutableMapOf<String, String>()
+            transaction["data"] = ""
+            transaction["from"] = ""
+
+            try {
+                PanWalletManager.getInstance().requestApproveDeposit(
+                    this,
+                    "",
+                    0f,
+                    transaction
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun deposit() {
+        binding.btnDeposit.setOnClickListener {
+            val transaction = mutableMapOf<String, String>()
+            transaction["data"] = ""
+            transaction["from"] = ""
+
+            try {
+                PanWalletManager.getInstance().requestDeposit(
+                    this,
+                    0f,
+                    "",
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun approveUnlockBox() {
+        binding.btnApprovedUnlockBox.setOnClickListener {
+            val transaction = mutableMapOf<String, String>()
+            transaction["data"] = ""
+            transaction["from"] = ""
+
+            try {
+                PanWalletManager.getInstance().requestApproveUnlockBox(
+                    this,
+                    "",
+                    transaction
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun unlockBox() {
+        binding.btnUnlockBox.setOnClickListener {
+            val transaction = mutableMapOf<String, String>()
+            transaction["data"] = ""
+            transaction["from"] = ""
+
+            try {
+                PanWalletManager.getInstance().requestUnlockBox(
+                    this,
+                    "",
+                    "",
+                    transaction
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun openbox() {
+        binding.btnOpenBox.setOnClickListener {
+            val transaction = mutableMapOf<String, String>()
+            transaction["data"] = ""
+            transaction["from"] = ""
+
+            try {
+                PanWalletManager.getInstance().requestOpenBox(
+                    this,
+                    "",
+                    "",
+                    transaction
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
 
     private fun getDataOpening() {
         try {
@@ -235,3 +434,66 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+/*    private fun setSpinner() {
+        val spinnerAdapter =
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, arrayChain)
+
+        binding.spinnerChain.apply {
+            adapter = spinnerAdapter
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    when (arrayChain[p2]) {
+                        BlockChain.BITCOIN.symbol -> {
+                            chain = BlockChain.BITCOIN
+                        }
+
+                        BlockChain.ETHEREUM.symbol -> {
+                            chain = BlockChain.ETHEREUM
+                        }
+
+                        BlockChain.BINANCE_SMART_CHAIN.symbol -> {
+                            chain = BlockChain.BINANCE_SMART_CHAIN
+                        }
+
+                        BlockChain.SOLANA.symbol -> {
+                            chain = BlockChain.SOLANA
+                        }
+
+                        else -> {
+                            chain = BlockChain.BITCOIN
+                        }
+                    }
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+            }
+        }
+    }*/
+
+/*private fun testConnect() {
+    binding.btnSendToken.setOnClickListener {
+        //Declare data send
+        val i = Intent()
+        i.putExtra("data", "Duong Vu Tru")
+        i.action = "com.panwallet.data"
+
+        //Declare open app
+        var intent: Intent? =
+            this.applicationContext.packageManager.getLaunchIntentForPackage(packageName)
+        if (intent != null) {
+            intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("app://com.moveplus.app.debug")
+            intent.putExtra("data", "Duong Vu Tru")
+        }
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        //open app
+        this.applicationContext.startActivity(intent)
+        //send data
+        applicationContext.sendBroadcast(i)
+    }
+}*/

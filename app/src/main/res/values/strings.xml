@@ -13,5 +13,17 @@
     <string name="send_nft">send nft</string>
     <string name="sell_nft">Sell Nft</string>
     <string name="buy_nft">buy nft</string>
+    <string name="approved_buy_nft">Approved Buy Nft</string>
+    <string name="approved_sell_nft">Approved sell nft</string>
+    <string name="approved_deposit">Approved Deposit</string>
+    <string name="deposit">Deposit</string>
+    <string name="approved_unlock_box">Approved unlock box</string>
+    <string name="unlock_box">Unlock box</string>
+    <string name="open_box">Open box</string>
+    <string name="btc">BTC</string>
+    <string name="sol">SOL</string>
+    <string name="bsc">BSC</string>
+    <string name="eth">ETH</string>
+    <string name="chain_connect">Chain connect</string>
 
 </resources>
