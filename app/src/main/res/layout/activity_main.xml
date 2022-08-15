@@ -8,6 +8,16 @@
 
 
     <Button
+        android:id="@+id/btn_multi_chain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/multi_chain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btn_btc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +25,7 @@
         android:layout_marginTop="30dp"
         android:text="@string/btc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btn_multi_chain" />
 
     <Button
         android:id="@+id/btn_sol"
@@ -25,7 +35,7 @@
         android:layout_marginEnd="10dp"
         android:text="@string/sol"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btn_multi_chain" />
 
     <Button
         android:id="@+id/btn_bsc"
@@ -35,7 +45,7 @@
         android:layout_marginEnd="10dp"
         android:text="@string/bsc"
         app:layout_constraintEnd_toStartOf="@+id/btn_sol"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btn_multi_chain" />
 
     <Button
         android:id="@+id/btn_eth"
@@ -47,7 +57,7 @@
         android:text="@string/eth"
         app:layout_constraintEnd_toStartOf="@+id/btn_bsc"
         app:layout_constraintStart_toEndOf="@+id/code"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btn_multi_chain" />
 
     <TextView
         android:id="@+id/chain_connect"

@@ -25,5 +25,6 @@
     <string name="bsc">BSC</string>
     <string name="eth">ETH</string>
     <string name="chain_connect">Chain connect</string>
+    <string name="multi_chain">Multi chain</string>
 
 </resources>

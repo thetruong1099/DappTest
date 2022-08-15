@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        Log.d("TestApp", "onCreate: ")
 
         setContentView(binding.root)
 
@@ -72,7 +73,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setChain() {
-        if (this::chain.isInitialized) {
+        when (SharePreferences(this).getChain()) {
+            BlockChain.MULTI_CHAIN.symbol -> chain = BlockChain.MULTI_CHAIN
+
+            BlockChain.BITCOIN.symbol -> chain = BlockChain.BITCOIN
+
+            BlockChain.ETHEREUM.symbol -> chain = BlockChain.ETHEREUM
+
+            BlockChain.BINANCE_SMART_CHAIN.symbol -> chain = BlockChain.BINANCE_SMART_CHAIN
+
+            BlockChain.SOLANA.symbol -> chain = BlockChain.SOLANA
+        }
+
+        binding.btnMultiChain.setOnClickListener {
+            chain = BlockChain.MULTI_CHAIN
             binding.tvChainConnect.text = chain.symbol
         }
 
@@ -116,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnConnectModeDebug.setOnClickListener {
             try {
                 PanWalletManager.getInstance().connectToWallet(chain, this)
-
+                SharePreferences(this).saveChain(chain)
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
 
