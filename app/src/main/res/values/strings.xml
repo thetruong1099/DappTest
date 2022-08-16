@@ -26,5 +26,7 @@
     <string name="eth">ETH</string>
     <string name="chain_connect">Chain connect</string>
     <string name="multi_chain">Multi chain</string>
+    <string name="result">result</string>
+    <string name="disconnect">Disconnect</string>
 
 </resources>

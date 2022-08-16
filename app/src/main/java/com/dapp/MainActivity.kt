@@ -4,18 +4,17 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+import android.opengl.ETC1.isValid
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.dapp.databinding.ActivityMainBinding
-import com.google.gson.Gson
 import com.panwallet.sdk.config.*
 import com.panwallet.sdk.connection.PanWalletManager
+import org.json.JSONException
+import org.json.JSONObject
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        Log.d("TestApp", "onCreate: ")
 
         setContentView(binding.root)
 
@@ -58,10 +56,12 @@ class MainActivity : AppCompatActivity() {
         approveUnlockBox()
         unlockBox()
         openbox()
+        disconnect()
     }
 
     override fun onResume() {
         super.onResume()
+        setTVChain()
         getDataOpening()
     }
 
@@ -72,8 +72,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setChain() {
-        when (SharePreferences(this).getChain()) {
+    private fun setTVChain() {
+        val chainConnect = SharePreferences(this).getChain()
+        binding.tvChainConnect.text = chainConnect
+        when (chainConnect) {
             BlockChain.MULTI_CHAIN.symbol -> chain = BlockChain.MULTI_CHAIN
 
             BlockChain.BITCOIN.symbol -> chain = BlockChain.BITCOIN
@@ -84,7 +86,9 @@ class MainActivity : AppCompatActivity() {
 
             BlockChain.SOLANA.symbol -> chain = BlockChain.SOLANA
         }
+    }
 
+    private fun setChain() {
         binding.btnMultiChain.setOnClickListener {
             chain = BlockChain.MULTI_CHAIN
             binding.tvChainConnect.text = chain.symbol
@@ -149,6 +153,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 PanWalletManager.getInstance().requestTransferToken(
                     this,
+                    chain,
                     null,
                     0.5f,
                     "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
@@ -174,6 +179,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 PanWalletManager.getInstance().requestApproveBuyNft(
                     this,
+                    chain,
                     "0x00",
                     "MOP",
                     transaction
@@ -199,6 +205,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 PanWalletManager.getInstance().requestApproveSellNft(
                     this,
+                    chain,
                     "0x00",
                     transaction
                 )
@@ -223,7 +230,7 @@ class MainActivity : AppCompatActivity() {
 
             try {
                 PanWalletManager.getInstance().requestSendNFT(
-                    this, "ETH", "0x001313464",
+                    this, chain, "ETH", "0x001313464",
                     NFT("1", "https://", "asd", 0.5f),
                     transaction
                 )
@@ -248,7 +255,7 @@ class MainActivity : AppCompatActivity() {
 
             try {
                 PanWalletManager.getInstance().requestBuyNFT(
-                    this, "ETH", "0x001313464",
+                    this, chain, "ETH", "0x001313464",
                     NFT("1", "https://", "asd", 0.5f),
                     transaction
                 )
@@ -273,7 +280,7 @@ class MainActivity : AppCompatActivity() {
 
             try {
                 PanWalletManager.getInstance().requestSellNFT(
-                    this, "ETH", "0x001313464",
+                    this, chain, "ETH", "0x001313464",
                     NFT("1", "https://", "asd", 0.5f),
                     transaction
                 )
@@ -299,6 +306,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 PanWalletManager.getInstance().requestApproveDeposit(
                     this,
+                    chain,
                     "",
                     0f,
                     transaction
@@ -325,6 +333,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 PanWalletManager.getInstance().requestDeposit(
                     this,
+                    chain,
                     0f,
                     "",
                 )
@@ -350,6 +359,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 PanWalletManager.getInstance().requestApproveUnlockBox(
                     this,
+                    chain,
                     "",
                     transaction
                 )
@@ -375,6 +385,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 PanWalletManager.getInstance().requestUnlockBox(
                     this,
+                    chain,
                     "",
                     "",
                     transaction
@@ -401,10 +412,28 @@ class MainActivity : AppCompatActivity() {
             try {
                 PanWalletManager.getInstance().requestOpenBox(
                     this,
+                    chain,
                     "",
                     "",
                     transaction
                 )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun disconnect() {
+        binding.btnDisconnect.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().disconnect(this)
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
 
@@ -424,7 +453,7 @@ class MainActivity : AppCompatActivity() {
             panConnection.getDataResponse(this, intent).let { data ->
                 binding.tvCode.text = data.code.toString()
                 binding.tvMessage.text = data.message
-                binding.tvAddress.text = data.data["address"]
+                binding.tvAddress.text = data.data.toString()
             }
         } catch (e: Exception) {
             Log.d("testDapp", "Exception: ${e.message}")
@@ -446,7 +475,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
 }
 
 /*    private fun setSpinner() {
