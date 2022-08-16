@@ -180,6 +180,7 @@ class MainActivity : AppCompatActivity() {
                 PanWalletManager.getInstance().requestApproveBuyNft(
                     this,
                     chain,
+                    1f,
                     "0x00",
                     "MOP",
                     transaction
@@ -206,6 +207,7 @@ class MainActivity : AppCompatActivity() {
                 PanWalletManager.getInstance().requestApproveSellNft(
                     this,
                     chain,
+                    1f,
                     "0x00",
                     transaction
                 )
@@ -225,8 +227,8 @@ class MainActivity : AppCompatActivity() {
     private fun sendNft() {
         binding.btnSendNft.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
-            transaction["data"] = ""
-            transaction["from"] = ""
+            transaction["data"] = "asdasd"
+            transaction["from"] = "asdasd"
 
             try {
                 PanWalletManager.getInstance().requestSendNFT(
@@ -250,8 +252,8 @@ class MainActivity : AppCompatActivity() {
     private fun buyNft() {
         binding.btnBuyNft.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
-            transaction["data"] = ""
-            transaction["from"] = ""
+            transaction["data"] = "asdasd"
+            transaction["from"] = "asdasd"
 
             try {
                 PanWalletManager.getInstance().requestBuyNFT(
@@ -275,8 +277,8 @@ class MainActivity : AppCompatActivity() {
     private fun sellNft() {
         binding.btnBuyNft.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
-            transaction["data"] = ""
-            transaction["from"] = ""
+            transaction["data"] = "asdad"
+            transaction["from"] = "asdasd"
 
             try {
                 PanWalletManager.getInstance().requestSellNFT(
@@ -300,15 +302,15 @@ class MainActivity : AppCompatActivity() {
     private fun approveDeposit() {
         binding.btnApprovedDeposit.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
-            transaction["data"] = ""
-            transaction["from"] = ""
+            transaction["data"] = "adasd"
+            transaction["from"] = "asdasd"
 
             try {
                 PanWalletManager.getInstance().requestApproveDeposit(
                     this,
                     chain,
-                    "",
-                    0f,
+                    "0x0000",
+                    1f,
                     transaction
                 )
             } catch (e: Exception) {
@@ -353,14 +355,15 @@ class MainActivity : AppCompatActivity() {
     private fun approveUnlockBox() {
         binding.btnApprovedUnlockBox.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
-            transaction["data"] = ""
-            transaction["from"] = ""
+            transaction["data"] = "asdasd"
+            transaction["from"] = "asdasd"
 
             try {
                 PanWalletManager.getInstance().requestApproveUnlockBox(
                     this,
                     chain,
-                    "",
+                    1f,
+                    "0x0000",
                     transaction
                 )
             } catch (e: Exception) {
