@@ -56,7 +56,11 @@ class MainActivity : AppCompatActivity() {
         approveUnlockBox()
         unlockBox()
         openbox()
-        disconnect()
+        disconnectMultiChain()
+        disconnectBTC()
+        disconnectETH()
+        disconnectBSC()
+        disconnectSOL()
     }
 
     override fun onResume() {
@@ -275,7 +279,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sellNft() {
-        binding.btnBuyNft.setOnClickListener {
+        binding.btnSellNft.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
             transaction["data"] = "asdad"
             transaction["from"] = "asdasd"
@@ -382,15 +386,15 @@ class MainActivity : AppCompatActivity() {
     private fun unlockBox() {
         binding.btnUnlockBox.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
-            transaction["data"] = ""
-            transaction["from"] = ""
+            transaction["data"] = "0x000"
+            transaction["from"] = "0x00"
 
             try {
                 PanWalletManager.getInstance().requestUnlockBox(
                     this,
                     chain,
-                    "",
-                    "",
+                    "MOP",
+                    "0x00",
                     transaction
                 )
             } catch (e: Exception) {
@@ -409,15 +413,15 @@ class MainActivity : AppCompatActivity() {
     private fun openbox() {
         binding.btnOpenBox.setOnClickListener {
             val transaction = mutableMapOf<String, String>()
-            transaction["data"] = ""
-            transaction["from"] = ""
+            transaction["data"] = "0x0000"
+            transaction["from"] = "0x0000"
 
             try {
                 PanWalletManager.getInstance().requestOpenBox(
                     this,
                     chain,
-                    "",
-                    "",
+                    "MOP",
+                    "0x000000",
                     transaction
                 )
             } catch (e: Exception) {
@@ -433,10 +437,78 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun disconnect() {
-        binding.btnDisconnect.setOnClickListener {
+    private fun disconnectMultiChain() {
+        binding.btnDisconnectMultiChain.setOnClickListener {
             try {
-                PanWalletManager.getInstance().disconnect(this)
+                PanWalletManager.getInstance().disconnect(this, BlockChain.MULTI_CHAIN)
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun disconnectBTC() {
+        binding.btnDisconnectMultiChain.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().disconnect(this, BlockChain.BITCOIN)
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun disconnectETH() {
+        binding.btnDisconnectMultiChain.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().disconnect(this, BlockChain.ETHEREUM)
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun disconnectBSC() {
+        binding.btnDisconnectMultiChain.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().disconnect(this, BlockChain.BINANCE_SMART_CHAIN)
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun disconnectSOL() {
+        binding.btnDisconnectMultiChain.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().disconnect(this, BlockChain.SOLANA)
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(this)
 

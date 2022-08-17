@@ -28,5 +28,10 @@
     <string name="multi_chain">Multi chain</string>
     <string name="result">result</string>
     <string name="disconnect">Disconnect</string>
+    <string name="disconnect_multi_chain">disconnect Multi Chain</string>
+    <string name="disconnect_btc">disconnect BTC</string>
+    <string name="disconnect_eth">disconnect ETH</string>
+    <string name="disconnect_bsc">disconnect BSC</string>
+    <string name="disconnect_sol">disconnect SOL</string>
 
 </resources>
