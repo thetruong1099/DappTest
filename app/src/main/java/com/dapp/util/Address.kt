@@ -1,4 +1,4 @@
-package com.dapp
+package com.dapp.util
 
 data class Address(
     var btc:String? = null,

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dapp.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_walletConnectFragment"
+            app:destination="@id/walletConnectFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_transferTokenFragment"
+            app:destination="@id/transferTokenFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_depositFragment"
+            app:destination="@id/depositFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_transferNftFragment"
+            app:destination="@id/transferNftFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_openBoxFragment"
+            app:destination="@id/openBoxFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_unlockBoxFragment"
+            app:destination="@id/unlockBoxFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/walletConnectFragment"
+        android:name="com.dapp.fragment.WalletConnectFragment"
+        android:label="fragment_wallet_connect"
+        tools:layout="@layout/fragment_wallet_connect">
+        <action
+            android:id="@+id/action_walletConnectFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/transferTokenFragment"
+        android:name="com.dapp.fragment.TransferTokenFragment"
+        android:label="fragment_transfer_token"
+        tools:layout="@layout/fragment_transfer_token">
+        <action
+            android:id="@+id/action_transferTokenFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/transferNftFragment"
+        android:name="com.dapp.fragment.TransferNftFragment"
+        android:label="fragment_transfer_nft"
+        tools:layout="@layout/fragment_transfer_nft">
+        <action
+            android:id="@+id/action_transferNftFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/depositFragment"
+        android:name="com.dapp.fragment.DepositFragment"
+        android:label="fragment_deposit"
+        tools:layout="@layout/fragment_deposit">
+        <action
+            android:id="@+id/action_depositFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/unlockBoxFragment"
+        android:name="com.dapp.fragment.UnlockBoxFragment"
+        android:label="fragment_unlock_box"
+        tools:layout="@layout/fragment_unlock_box">
+        <action
+            android:id="@+id/action_unlockBoxFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/openBoxFragment"
+        android:name="com.dapp.fragment.OpenBoxFragment"
+        android:label="fragment_open_box"
+        tools:layout="@layout/fragment_open_box">
+        <action
+            android:id="@+id/action_openBoxFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

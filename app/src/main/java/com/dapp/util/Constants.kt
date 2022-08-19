@@ -1,4 +1,4 @@
-package com.dapp
+package com.dapp.util
 
 object Constants {
     const val sharePreferencesName = "DappPreference"

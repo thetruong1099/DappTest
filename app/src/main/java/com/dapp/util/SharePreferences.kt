@@ -1,4 +1,4 @@
-package com.dapp
+package com.dapp.util
 
 import android.content.Context
 import com.panwallet.sdk.config.BlockChain

@@ -33,5 +33,22 @@
     <string name="disconnect_eth">disconnect ETH</string>
     <string name="disconnect_bsc">disconnect BSC</string>
     <string name="disconnect_sol">disconnect SOL</string>
+    <string name="network_blockchain">Network Blockchain</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wallet_connect">Wallet Connect</string>
+    <string name="transfer_token">Transfer Token</string>
+    <string name="transfer_nft">Transfer Nft</string>
+    <string name="connect">Connect</string>
+    <string name="todo">TODO</string>
+    <string name="contract_address">Contract address</string>
+    <string name="address_receive">Address receive</string>
+    <string name="amount">Amount</string>
+    <string name="wallet_type">Wallet type</string>
+    <string name="network">Network</string>
+    <string name="approve_buy_nft">Approve buy nft</string>
+    <string name="change_connect_type">Change connect type</string>
+    <string name="select_wallet_is_connected">Select wallet is connected</string>
+    <string name="button">Button</string>
 
 </resources>

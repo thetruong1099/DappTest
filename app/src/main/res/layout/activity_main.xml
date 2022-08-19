@@ -4,82 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
-
-    <Button
-        android:id="@+id/btn_multi_chain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/multi_chain"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="DuplicateSpeakableTextCheck" />
+        app:navGraph="@navigation/main_nav_graph" />
 
-    <Button
-        android:id="@+id/btn_btc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/btc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_multi_chain"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-
-    <Button
-        android:id="@+id/btn_sol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/sol"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_multi_chain"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-
-    <Button
-        android:id="@+id/btn_bsc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/bsc"
-        app:layout_constraintEnd_toStartOf="@+id/btn_sol"
-        app:layout_constraintStart_toEndOf="@+id/btn_eth"
-        app:layout_constraintTop_toBottomOf="@id/btn_multi_chain"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-
-    <Button
-        android:id="@+id/btn_eth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/eth"
-        app:layout_constraintStart_toEndOf="@+id/btn_btc"
-        app:layout_constraintTop_toBottomOf="@id/btn_multi_chain"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-
-    <TextView
+    <!--
+     <TextView
         android:id="@+id/chain_connect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/chain_connect"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_btc" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_chain_connect"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="10dp"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="14sp"
@@ -88,80 +45,6 @@
         app:layout_constraintStart_toEndOf="@+id/chain_connect"
         app:layout_constraintTop_toTopOf="@+id/chain_connect" />
 
-    <TextView
-        android:id="@+id/code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/code"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chain_connect" />
-
-    <TextView
-        android:id="@+id/tv_code"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="30dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/code"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/code"
-        app:layout_constraintTop_toTopOf="@+id/code" />
-
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/message"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/code" />
-
-    <TextView
-        android:id="@+id/tv_message"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="30dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/message"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/message"
-        app:layout_constraintTop_toTopOf="@+id/message" />
-
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/result"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message" />
-
-    <TextView
-        android:id="@+id/tv_address"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="30dp"
-        android:maxLines="5"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/result"
-        app:layout_constraintTop_toTopOf="@+id/result" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -177,6 +60,76 @@
             android:gravity="center"
             android:orientation="vertical">
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/network_blockchain"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_multi_chain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/multi_chain"
+                    tools:ignore="DuplicateSpeakableTextCheck"
+                    style="?android:attr/buttonBarButtonStyle" />
+
+                <Button
+                    android:id="@+id/btn_btc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/btc"
+                    tools:ignore="DuplicateSpeakableTextCheck"
+                    style="?android:attr/buttonBarButtonStyle" />
+
+                <Button
+                    android:id="@+id/btn_eth"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/eth"
+                    tools:ignore="DuplicateSpeakableTextCheck"
+                    style="?android:attr/buttonBarButtonStyle" />
+
+                <Button
+                    android:id="@+id/btn_bsc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/bsc"
+                    tools:ignore="DuplicateSpeakableTextCheck"
+                    style="?android:attr/buttonBarButtonStyle" />
+
+                <Button
+                    android:id="@+id/btn_sol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/sol"
+                    tools:ignore="DuplicateSpeakableTextCheck"
+                    style="?android:attr/buttonBarButtonStyle" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_connect_mode_debug"
@@ -200,23 +153,23 @@
 
                 <Button
                     android:id="@+id/btn_approved_buy_nft"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/approved_buy_nft"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/approved_buy_nft" />
 
                 <Button
                     android:id="@+id/btn_approved_sell_nft"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="@string/approved_sell_nft"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/approved_sell_nft" />
             </LinearLayout>
 
 
@@ -228,33 +181,33 @@
 
                 <Button
                     android:id="@+id/btn_send_nft"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/send_nft"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/send_nft" />
 
                 <Button
                     android:id="@+id/btn_sell_nft"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/sell_nft"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/sell_nft" />
 
                 <Button
                     android:id="@+id/btn_buy_nft"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="@string/buy_nft"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/buy_nft" />
             </LinearLayout>
 
 
@@ -266,23 +219,23 @@
 
                 <Button
                     android:id="@+id/btn_approved_deposit"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/approved_deposit"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/approved_deposit" />
 
                 <Button
                     android:id="@+id/btn_deposit"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="@string/deposit"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/deposit" />
             </LinearLayout>
 
 
@@ -294,23 +247,23 @@
 
                 <Button
                     android:id="@+id/btn_approved_unlock_box"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/approved_unlock_box"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/approved_unlock_box" />
 
                 <Button
                     android:id="@+id/btn_unlock_box"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="@string/unlock_box"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/unlock_box" />
             </LinearLayout>
 
 
@@ -339,56 +292,56 @@
 
                 <Button
                     android:id="@+id/btn_disconnect_multi_chain"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/multi_chain"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/multi_chain" />
 
                 <Button
                     android:id="@+id/btn_disconnect_btc"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/btc"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/btc" />
 
                 <Button
                     android:id="@+id/btn_disconnect_eth"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/eth"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/eth" />
 
                 <Button
                     android:id="@+id/btn_disconnect_bsc"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="@string/bsc"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/bsc" />
 
                 <Button
                     android:id="@+id/btn_disconnect_sol"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="@string/sol"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/sol" />
             </LinearLayout>
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
