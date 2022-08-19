@@ -50,7 +50,7 @@ class DepositFragment : Fragment() {
 
     private fun setGoBack() {
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_transferTokenFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_depositFragment_to_homeFragment)
         }
     }
 
