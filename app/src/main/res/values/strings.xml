@@ -34,8 +34,6 @@
     <string name="disconnect_bsc">disconnect BSC</string>
     <string name="disconnect_sol">disconnect SOL</string>
     <string name="network_blockchain">Network Blockchain</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wallet_connect">Wallet Connect</string>
     <string name="transfer_token">Transfer Token</string>
     <string name="transfer_nft">Transfer Nft</string>
@@ -51,5 +49,13 @@
     <string name="select_wallet_is_connected">Select wallet is connected</string>
     <string name="button">Button</string>
     <string name="nft">nft</string>
+    <string name="approve_deposit_nft">Approve deposit nft</string>
+    <string name="deposit_nft">Deposit Nft</string>
+    <string name="transfer_box">Transfer box</string>
+    <string name="approved_deposit_token">Approved deposit token</string>
+    <string name="deposit_token">Deposit token</string>
+    <string name="buy_box">Buy box</string>
+    <string name="send_box">Send box</string>
+    <string name="approve_buy_box">Approve buy box</string>
 
 </resources>

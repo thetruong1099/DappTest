@@ -60,19 +60,11 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnDeposit.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_depositFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_depositTokenFragment)
         }
 
         binding.btnTransferNft.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_transferNftFragment)
-        }
-
-        binding.btnUnlockBox.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_unlockBoxFragment)
-        }
-
-        binding.btnOpenBox.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_openBoxFragment)
         }
     }
 

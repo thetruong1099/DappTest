@@ -42,8 +42,8 @@ class WalletConnectFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setSpinner()
         setGoBack()
-        setEventConnect()
-        setEventDisconnect()
+        eventConnect()
+        eventDisconnect()
         eventSelectWalletConnected()
     }
 
@@ -97,7 +97,7 @@ class WalletConnectFragment : Fragment() {
         }
     }
 
-    private fun setEventConnect() {
+    private fun eventConnect() {
         binding.btnConnect.setOnClickListener {
             try {
                 PanWalletManager.getInstance().connectToWallet(chain, requireContext())
@@ -114,7 +114,7 @@ class WalletConnectFragment : Fragment() {
         }
     }
 
-    private fun setEventDisconnect() {
+    private fun eventDisconnect() {
         binding.btnDisconnect.setOnClickListener {
             try {
                 PanWalletManager.getInstance().disconnect(requireContext(), chain)

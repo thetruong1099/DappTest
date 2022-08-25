@@ -2,12 +2,12 @@ package com.dapp.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dapp.R
 import com.dapp.databinding.FragmentTransferNftBinding
@@ -47,6 +47,8 @@ class TransferNftFragment : Fragment() {
         eventApproveSellNft()
         eventSellNft()
         eventSendNft()
+        eventApproveDepositNft()
+        eventDepositNft()
     }
 
     override fun onDestroyView() {
@@ -56,7 +58,7 @@ class TransferNftFragment : Fragment() {
 
     private fun setGoBack() {
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_transferTokenFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_transferNftFragment_to_homeFragment)
         }
     }
 
@@ -147,21 +149,50 @@ class TransferNftFragment : Fragment() {
     }
 
     private fun eventApproveBuyNft() {
+        val transactionData =
+            mapOf<String, Any>(
+                "to" to "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                "data" to "0x23b872dd00000000000000000000000029c0c2bea26708282aed3a87379a03cfc41624c4000000000000000000000000aa437fb6af74febefc2fffa4fbbbe38605b752d70000000000000000000000000000000000000000000000000000000000000000",
+                "value" to "0x00"
+            )
         binding.btnApproveBuyNft.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestApproveBuyNft(
+                    requireContext(),
+                    BlockChain.ETHEREUM,
+                    "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
+                    "",
+                    0f,
+                    transactionData
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
 
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
         }
     }
 
     private fun eventBuyNft() {
-        val transactionData = mutableMapOf<String, Any>()
+        val transactionData =
+            mapOf<String, Any>(
+                "to" to "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                "data" to "0x23b872dd00000000000000000000000029c0c2bea26708282aed3a87379a03cfc41624c4000000000000000000000000aa437fb6af74febefc2fffa4fbbbe38605b752d70000000000000000000000000000000000000000000000000000000000000000",
+                "value" to "0x00"
+            )
         binding.btnBuyNft.setOnClickListener {
             try {
                 PanWalletManager.getInstance().requestBuyNFT(
                     requireContext(),
-                    BlockChain.BINANCE_SMART_CHAIN,
+                    BlockChain.ETHEREUM,
+                    "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
                     "MOP",
-                    "0x680d686E30eB2Fb93ec759c53Ef001a9AbaCdF7b",
-                    NFT("152", null, "nft", null),
+                    NFT("0", null, "london1", null),
                     transactionData
                 )
             } catch (e: Exception) {
@@ -178,19 +209,48 @@ class TransferNftFragment : Fragment() {
     }
 
     private fun eventApproveSellNft() {
-        binding.btnApproveSellNft.setOnClickListener {}
+        val transactionData =
+            mapOf<String, Any>(
+                "to" to "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                "data" to "0x23b872dd00000000000000000000000029c0c2bea26708282aed3a87379a03cfc41624c4000000000000000000000000aa437fb6af74febefc2fffa4fbbbe38605b752d70000000000000000000000000000000000000000000000000000000000000000",
+                "value" to "0x00"
+            )
+        binding.btnApproveSellNft.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestApproveSellNft(
+                    requireContext(),
+                    BlockChain.ETHEREUM,
+                    "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
+                    transactionData
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
     }
 
     private fun eventSellNft() {
+        val transactionData =
+            mapOf<String, Any>(
+                "to" to "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                "data" to "0x23b872dd00000000000000000000000029c0c2bea26708282aed3a87379a03cfc41624c4000000000000000000000000aa437fb6af74febefc2fffa4fbbbe38605b752d70000000000000000000000000000000000000000000000000000000000000000",
+                "value" to "0x00"
+            )
         binding.btnSellNft.setOnClickListener {
-            val transactionData = mutableMapOf<String, Any>()
             try {
                 PanWalletManager.getInstance().requestSellNFT(
                     requireContext(),
-                    BlockChain.BINANCE_SMART_CHAIN,
+                    BlockChain.ETHEREUM,
+                    "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
                     "MOP",
-                    "0x680d686E30eB2Fb93ec759c53Ef001a9AbaCdF7b",
-                    NFT("152", null, "nft", null),
+                    NFT("0", null, "london1", null),
                     transactionData
                 )
             } catch (e: Exception) {
@@ -207,16 +267,76 @@ class TransferNftFragment : Fragment() {
     }
 
     private fun eventSendNft() {
-        val transactionData = mutableMapOf<String, Any>()
-        transactionData["data"] =
-            "0x23b872dd00000000000000000000000016f52d3d08a5af4ff72f4ae62f339aa444d780e1000000000000000000000000c3ad692f87ea0267c34f57c7752552338ae62daf0000000000000000000000000000000000000000000000000000000000000098"
+        val transactionData =
+            mapOf<String, Any>(
+                "to" to "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                "data" to "0x23b872dd00000000000000000000000029c0c2bea26708282aed3a87379a03cfc41624c4000000000000000000000000aa437fb6af74febefc2fffa4fbbbe38605b752d70000000000000000000000000000000000000000000000000000000000000000",
+                "value" to "0x00"
+            )
         binding.btnSendNft.setOnClickListener {
             try {
                 PanWalletManager.getInstance().requestSendNFT(
                     requireContext(),
-                    BlockChain.BINANCE_SMART_CHAIN,
-                    "0x680d686E30eB2Fb93ec759c53Ef001a9AbaCdF7b",
-                    NFT("152", null, "nft", null),
+                    BlockChain.ETHEREUM,
+                    "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
+                    NFT("0", null, "london1", null),
+                    transactionData
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun eventApproveDepositNft() {
+        val transactionData =
+            mapOf<String, Any>(
+                "to" to "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                "data" to "0x23b872dd00000000000000000000000029c0c2bea26708282aed3a87379a03cfc41624c4000000000000000000000000aa437fb6af74febefc2fffa4fbbbe38605b752d70000000000000000000000000000000000000000000000000000000000000000",
+                "value" to "0x00"
+            )
+        binding.btnApproveDepositNft.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestApproveDepositNft(
+                    requireContext(),
+                    BlockChain.ETHEREUM,
+                    "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
+                    transactionData
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun eventDepositNft() {
+        val transactionData =
+            mapOf<String, Any>(
+                "to" to "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
+                "data" to "0x23b872dd00000000000000000000000029c0c2bea26708282aed3a87379a03cfc41624c4000000000000000000000000aa437fb6af74febefc2fffa4fbbbe38605b752d70000000000000000000000000000000000000000000000000000000000000000",
+                "value" to "0x00"
+            )
+        binding.btnDepositNft.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestDepositNft(
+                    requireContext(),
+                    BlockChain.ETHEREUM,
+                    "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
+                    NFT("0", null, "london1", null),
                     transactionData
                 )
             } catch (e: Exception) {

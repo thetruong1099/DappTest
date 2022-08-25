@@ -10,12 +10,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.dapp.R
-import com.dapp.databinding.FragmentDepositBinding
+import com.dapp.databinding.FragmentDepositTokenBinding
 import com.panwallet.sdk.config.BlockChain
 import com.panwallet.sdk.connection.PanWalletManager
 
-class DepositFragment : Fragment() {
-    private var _binding: FragmentDepositBinding? = null
+class DepositTokenFragment : Fragment() {
+    private var _binding: FragmentDepositTokenBinding? = null
     private val binding get() = _binding!!
 
     private val arrayNetwork = arrayListOf(
@@ -29,9 +29,9 @@ class DepositFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentDepositBinding.inflate(inflater, container, false)
+        _binding = FragmentDepositTokenBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,7 +50,7 @@ class DepositFragment : Fragment() {
 
     private fun setGoBack() {
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_depositFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_depositTokenFragment_to_homeFragment)
         }
     }
 
@@ -98,13 +98,13 @@ class DepositFragment : Fragment() {
     }
 
     private fun eventApproveDeposit() {
-        binding.btnApproveDeposit.setOnClickListener {
+        binding.btnApproveDepositToken.setOnClickListener {
             val contractAddress = binding.edtContractAddress.text.toString()
             val amount = binding.edtAmount.text.toString()
 
             if (contractAddress != "" && amount != "") {
                 try {
-                    PanWalletManager.getInstance().requestApproveDeposit(
+                    PanWalletManager.getInstance().requestApproveDepositToken(
                         requireContext(),
                         network,
                         contractAddress,
@@ -134,13 +134,13 @@ class DepositFragment : Fragment() {
     }
 
     private fun eventDeposit() {
-        binding.btnDeposit.setOnClickListener {
+        binding.btnDepositToken.setOnClickListener {
             val contractAddress = binding.edtContractAddress.text.toString()
             val amount = binding.edtAmount.text.toString()
 
             if (contractAddress != "" && amount != "") {
                 try {
-                    PanWalletManager.getInstance().requestDeposit(
+                    PanWalletManager.getInstance().requestDepositToken(
                         requireContext(),
                         network,
                         contractAddress,

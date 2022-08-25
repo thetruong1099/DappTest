@@ -40,7 +40,7 @@ class TransferTokenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setGoBack()
         setSpinner()
-        setEventSendToken()
+        eventSendToken()
     }
 
     override fun onDestroyView() {
@@ -97,7 +97,7 @@ class TransferTokenFragment : Fragment() {
         }
     }
 
-    private fun setEventSendToken() {
+    private fun eventSendToken() {
         binding.btnSendToken.setOnClickListener {
             val contractAddress =
                 if (binding.edtContractAddress.text.toString() == "") null else binding.edtContractAddress.text.toString()
