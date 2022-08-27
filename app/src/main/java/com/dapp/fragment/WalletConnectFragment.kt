@@ -135,7 +135,7 @@ class WalletConnectFragment : Fragment() {
         binding.btnSelectWalletConnected.setOnClickListener {
             try {
                 PanWalletManager.getInstance()
-                    .setCurrentWalletNetworkConnected(requireContext(), chain)
+                    .setCurrentWalletTypeConnected(requireContext(), chain)
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(requireContext())
 

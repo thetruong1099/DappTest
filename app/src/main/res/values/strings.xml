@@ -57,5 +57,6 @@
     <string name="buy_box">Buy box</string>
     <string name="send_box">Send box</string>
     <string name="approve_buy_box">Approve buy box</string>
+    <string name="cancel_transaction">Cancel transaction</string>
 
 </resources>

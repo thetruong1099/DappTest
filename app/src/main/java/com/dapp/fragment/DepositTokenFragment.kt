@@ -145,6 +145,7 @@ class DepositTokenFragment : Fragment() {
                         network,
                         contractAddress,
                         amount.toFloat(),
+                        "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7"
                     )
                 } catch (e: Exception) {
                     val alertDialogBuilder = AlertDialog.Builder(requireContext())

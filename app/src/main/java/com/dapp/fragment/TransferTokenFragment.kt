@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.dapp.R
 import com.dapp.databinding.FragmentTransferTokenBinding
 import com.panwallet.sdk.config.BlockChain
+import com.panwallet.sdk.config.ConnectType
 import com.panwallet.sdk.connection.PanWalletManager
 
 
@@ -41,6 +42,7 @@ class TransferTokenFragment : Fragment() {
         setGoBack()
         setSpinner()
         eventSendToken()
+        eventCancelTransaction()
     }
 
     override fun onDestroyView() {
@@ -129,6 +131,27 @@ class TransferTokenFragment : Fragment() {
                 alertDialogBuilder.apply {
                     setTitle("Alert dialog")
                     setMessage("Không để trống address receive và amount")
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
+
+    private fun eventCancelTransaction() {
+        binding.btnCancelTransaction.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestCancelTransaction(
+                    requireContext(),
+                    network,
+                    ConnectType.TRANSFER, null
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
                     setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
                     show()
                 }

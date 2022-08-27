@@ -66,6 +66,10 @@ class HomeFragment : Fragment() {
         binding.btnTransferNft.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_transferNftFragment)
         }
+
+        binding.btnTransferBox.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_transferBoxFragment)
+        }
     }
 
     private fun getDataOpening(context: Context, intent: Intent) {

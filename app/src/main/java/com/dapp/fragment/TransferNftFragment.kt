@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.dapp.R
 import com.dapp.databinding.FragmentTransferNftBinding
 import com.panwallet.sdk.config.BlockChain
+import com.panwallet.sdk.config.ConnectType
 import com.panwallet.sdk.config.NFT
 import com.panwallet.sdk.connection.PanWalletManager
 
@@ -159,10 +160,10 @@ class TransferNftFragment : Fragment() {
             try {
                 PanWalletManager.getInstance().requestApproveBuyNft(
                     requireContext(),
-                    BlockChain.ETHEREUM,
+                    network,
                     "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
-                    "",
-                    0f,
+                    "MOP",
+                    1f,
                     transactionData
                 )
             } catch (e: Exception) {
@@ -189,7 +190,7 @@ class TransferNftFragment : Fragment() {
             try {
                 PanWalletManager.getInstance().requestBuyNFT(
                     requireContext(),
-                    BlockChain.ETHEREUM,
+                    network,
                     "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
                     "MOP",
                     NFT("0", null, "london1", null),
@@ -219,7 +220,7 @@ class TransferNftFragment : Fragment() {
             try {
                 PanWalletManager.getInstance().requestApproveSellNft(
                     requireContext(),
-                    BlockChain.ETHEREUM,
+                    network,
                     "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
                     transactionData
                 )
@@ -247,7 +248,7 @@ class TransferNftFragment : Fragment() {
             try {
                 PanWalletManager.getInstance().requestSellNFT(
                     requireContext(),
-                    BlockChain.ETHEREUM,
+                    network,
                     "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
                     "MOP",
                     NFT("0", null, "london1", null),
@@ -277,9 +278,10 @@ class TransferNftFragment : Fragment() {
             try {
                 PanWalletManager.getInstance().requestSendNFT(
                     requireContext(),
-                    BlockChain.ETHEREUM,
+                    network,
                     "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
                     NFT("0", null, "london1", null),
+                    "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7",
                     transactionData
                 )
             } catch (e: Exception) {
@@ -304,9 +306,9 @@ class TransferNftFragment : Fragment() {
             )
         binding.btnApproveDepositNft.setOnClickListener {
             try {
-                PanWalletManager.getInstance().requestApproveDepositNft(
+                PanWalletManager.getInstance().requestApproveStakeNft(
                     requireContext(),
-                    BlockChain.ETHEREUM,
+                    network,
                     "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
                     transactionData
                 )
@@ -332,9 +334,9 @@ class TransferNftFragment : Fragment() {
             )
         binding.btnDepositNft.setOnClickListener {
             try {
-                PanWalletManager.getInstance().requestDepositNft(
+                PanWalletManager.getInstance().requestStakeNft(
                     requireContext(),
-                    BlockChain.ETHEREUM,
+                    network,
                     "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
                     NFT("0", null, "london1", null),
                     transactionData
