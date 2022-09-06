@@ -101,6 +101,9 @@ class DepositTokenFragment : Fragment() {
     private fun eventApproveDeposit() {
         //0xc7A0df7b30B977258164546F92E2c93367Cd0374
         //0x72491D3963b437ffc47563140a9BE8207Ff56e6F
+        val transactionData = mapOf<String, Any>(
+            "data" to "0x5bfadb2400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+        )
         binding.btnApproveDepositToken.setOnClickListener {
             try {
                 PanWalletManager.getInstance().requestApproveDepositToken(
@@ -108,7 +111,7 @@ class DepositTokenFragment : Fragment() {
                     BlockChain.BINANCE_SMART_CHAIN,
                     "0x72491D3963b437ffc47563140a9BE8207Ff56e6F",
                     100.0f,
-                    "0x49729Aa559e42676b45f0d73740a0588c16D35Df"
+                    transactionData
                 )
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(requireContext())
@@ -165,10 +168,10 @@ class DepositTokenFragment : Fragment() {
                 try {
                     PanWalletManager.getInstance().requestDepositToken(
                         requireContext(),
-                        network,
-                        "0xc7A0df7b30B977258164546F92E2c93367Cd0374",
+                        BlockChain.BINANCE_SMART_CHAIN,
+                        "0x72491D3963b437ffc47563140a9BE8207Ff56e6F",
                         1f,
-                        "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7"
+                        "0x49729Aa559e42676b45f0d73740a0588c16D35Df"
                     )
                 } catch (e: Exception) {
                     val alertDialogBuilder = AlertDialog.Builder(requireContext())
@@ -194,6 +197,9 @@ class DepositTokenFragment : Fragment() {
     }
 
     private fun eventWithDraw() {
+        val transactionData = mapOf<String, Any>(
+            "data" to "0x5bfadb2400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+        )
         binding.btnWithdraw.setOnClickListener {
             try {
                 PanWalletManager.getInstance().requestWithdrawToken(
@@ -201,7 +207,7 @@ class DepositTokenFragment : Fragment() {
                     BlockChain.BINANCE_SMART_CHAIN,
                     "0x72491D3963b437ffc47563140a9BE8207Ff56e6F",
                     1f,
-                    "0x3060275F556f582256B6f60E654471c5471D347b"
+                    transactionData
                 )
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(requireContext())
