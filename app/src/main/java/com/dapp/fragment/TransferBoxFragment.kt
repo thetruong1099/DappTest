@@ -142,7 +142,8 @@ class TransferBoxFragment : Fragment() {
                     requireContext(),
                     network,
                     "Gen",
-                    "0x4B977A6ADaA361CC49ba007335328Ab1Aa67fD5e",
+                    "0x12fCa23BfCA046F99cD417032A7DF54c4b3902b3",
+                    "0x2Aa030aBCa3299aB1891EE781F1fc780bE826681",
                     transactionData
                 )
             } catch (e: Exception) {
@@ -198,6 +199,7 @@ class TransferBoxFragment : Fragment() {
                     network,
                     "Gen",
                     "0x12fCa23BfCA046F99cD417032A7DF54c4b3902b3",
+                    "0x2Aa030aBCa3299aB1891EE781F1fc780bE826681",
                     transactionData
                 )
             } catch (e: Exception) {
@@ -266,9 +268,7 @@ class TransferBoxFragment : Fragment() {
         binding.btnCancelTransaction.setOnClickListener {
             try {
                 PanWalletManager.getInstance().requestCancelTransaction(
-                    requireContext(),
-                    network,
-                    ConnectType.UNLOCK_BOX, null
+                    requireContext()
                 )
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(requireContext())

@@ -142,9 +142,7 @@ class TransferTokenFragment : Fragment() {
         binding.btnCancelTransaction.setOnClickListener {
             try {
                 PanWalletManager.getInstance().requestCancelTransaction(
-                    requireContext(),
-                    network,
-                    ConnectType.TRANSFER, null
+                    requireContext()
                 )
             } catch (e: Exception) {
                 val alertDialogBuilder = AlertDialog.Builder(requireContext())

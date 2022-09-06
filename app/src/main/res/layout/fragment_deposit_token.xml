@@ -115,4 +115,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_deposit_token" />
+
+    <Button
+        android:id="@+id/btn_withdraw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/with_draw"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_cancel_transaction" />
 </androidx.constraintlayout.widget.ConstraintLayout>

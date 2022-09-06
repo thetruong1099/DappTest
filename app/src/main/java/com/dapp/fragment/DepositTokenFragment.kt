@@ -41,6 +41,7 @@ class DepositTokenFragment : Fragment() {
         setSpinner()
         eventApproveDeposit()
         eventDeposit()
+        eventWithDraw()
     }
 
     override fun onDestroyView() {
@@ -98,17 +99,39 @@ class DepositTokenFragment : Fragment() {
     }
 
     private fun eventApproveDeposit() {
+        //0xc7A0df7b30B977258164546F92E2c93367Cd0374
+        //0x72491D3963b437ffc47563140a9BE8207Ff56e6F
         binding.btnApproveDepositToken.setOnClickListener {
-            val contractAddress = binding.edtContractAddress.text.toString()
+            try {
+                PanWalletManager.getInstance().requestApproveDepositToken(
+                    requireContext(),
+                    BlockChain.BINANCE_SMART_CHAIN,
+                    "0x72491D3963b437ffc47563140a9BE8207Ff56e6F",
+                    100.0f,
+                    "0x49729Aa559e42676b45f0d73740a0588c16D35Df"
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+
+            /*val contractAddress = binding.edtContractAddress.text.toString()
             val amount = binding.edtAmount.text.toString()
 
             if (contractAddress != "" && amount != "") {
                 try {
                     PanWalletManager.getInstance().requestApproveDepositToken(
                         requireContext(),
-                        network,
-                        contractAddress,
-                        amount.toFloat(),
+                        BlockChain.BINANCE_SMART_CHAIN,
+                        " 0x72491D3963b437ffc47563140a9BE8207Ff56e6F",
+                        100.0f,
+                        "0x49729Aa559e42676b45f0d73740a0588c16D35Df"
                     )
                 } catch (e: Exception) {
                     val alertDialogBuilder = AlertDialog.Builder(requireContext())
@@ -129,7 +152,7 @@ class DepositTokenFragment : Fragment() {
                     setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
                     show()
                 }
-            }
+            }*/
         }
     }
 
@@ -143,8 +166,8 @@ class DepositTokenFragment : Fragment() {
                     PanWalletManager.getInstance().requestDepositToken(
                         requireContext(),
                         network,
-                        contractAddress,
-                        amount.toFloat(),
+                        "0xc7A0df7b30B977258164546F92E2c93367Cd0374",
+                        1f,
                         "0xAa437FB6Af74feBEfC2FFfa4FBBbe38605B752d7"
                     )
                 } catch (e: Exception) {
@@ -170,4 +193,26 @@ class DepositTokenFragment : Fragment() {
         }
     }
 
+    private fun eventWithDraw() {
+        binding.btnWithdraw.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestWithdrawToken(
+                    requireContext(),
+                    BlockChain.BINANCE_SMART_CHAIN,
+                    "0x72491D3963b437ffc47563140a9BE8207Ff56e6F",
+                    1f,
+                    "0x3060275F556f582256B6f60E654471c5471D347b"
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+        }
+    }
 }
