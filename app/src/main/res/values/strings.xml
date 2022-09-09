@@ -59,5 +59,8 @@
     <string name="approve_buy_box">Approve buy box</string>
     <string name="cancel_transaction">Cancel transaction</string>
     <string name="with_draw">With draw</string>
+    <string name="approve_stake_nft">Approve stake nft</string>
+    <string name="stake_nft">stake nft</string>
+    <string name="unstake_nft">Unstake Nft</string>
 
 </resources>

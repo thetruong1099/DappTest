@@ -100,31 +100,32 @@ class TransferTokenFragment : Fragment() {
     }
 
     private fun eventSendToken() {
-        binding.btnSendToken.setOnClickListener {
-            val contractAddress =
+        /*binding.btnSendToken.setOnClickListener {
+            try {
+                PanWalletManager.getInstance().requestTransferToken(
+                    requireContext(),
+                    BlockChain.BINANCE_SMART_CHAIN,
+                    "0x72491D3963b437ffc47563140a9BE8207Ff56e6F",
+                    100f,
+                    "0x29c0c2bEa26708282Aed3a87379A03cfc41624c4",
+                )
+            } catch (e: Exception) {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+
+                alertDialogBuilder.apply {
+                    setTitle("Alert dialog")
+                    setMessage(e.message)
+                    setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
+                    show()
+                }
+            }
+            *//*val contractAddress =
                 if (binding.edtContractAddress.text.toString() == "") null else binding.edtContractAddress.text.toString()
             val addressReceiver = binding.edtAddressReceive.text.toString()
             val amount = binding.edtAmount.text.toString()
 
             if (addressReceiver != "" && amount != "") {
-                try {
-                    PanWalletManager.getInstance().requestTransferToken(
-                        requireContext(),
-                        network,
-                        contractAddress,
-                        amount.toFloat(),
-                        addressReceiver,
-                    )
-                } catch (e: Exception) {
-                    val alertDialogBuilder = AlertDialog.Builder(requireContext())
 
-                    alertDialogBuilder.apply {
-                        setTitle("Alert dialog")
-                        setMessage(e.message)
-                        setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
-                        show()
-                    }
-                }
             } else {
                 val alertDialogBuilder = AlertDialog.Builder(requireContext())
 
@@ -134,12 +135,12 @@ class TransferTokenFragment : Fragment() {
                     setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
                     show()
                 }
-            }
-        }
+            }*//*
+        }*/
     }
 
     private fun eventCancelTransaction() {
-        binding.btnCancelTransaction.setOnClickListener {
+        /*binding.btnCancelTransaction.setOnClickListener {
             try {
                 PanWalletManager.getInstance().requestCancelTransaction(
                     requireContext()
@@ -154,6 +155,6 @@ class TransferTokenFragment : Fragment() {
                     show()
                 }
             }
-        }
+        }*/
     }
 }

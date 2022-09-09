@@ -32,7 +32,7 @@
     </application>
 
     <queries>
-        <package android:name="com.panwallet" />
+        <package android:name="com.panwallet.app.dev" />
     </queries>
 
 </manifest>

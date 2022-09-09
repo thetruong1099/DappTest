@@ -20,69 +20,14 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
 
-    <TextView
-        android:id="@+id/network"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:text="@string/network"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_back" />
-
-    <Spinner
-        android:id="@+id/spinner_network"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/network"
-        tools:ignore="SpeakableTextPresentCheck,DuplicateClickableBoundsCheck" />
-
-    <TextView
-        android:id="@+id/nft"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:text="@string/nft"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_network" />
-
-    <Spinner
-        android:id="@+id/spinner_nft"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nft"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <Button
         android:id="@+id/btn_approve_buy_nft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/approve_buy_nft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_nft" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
     <Button
         android:id="@+id/btn_buy_nft"
@@ -153,4 +98,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_deposit_nft" />
+
+    <Button
+        android:id="@+id/btn_approve_stake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ApproveStake"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_cancel_transaction" />
 </androidx.constraintlayout.widget.ConstraintLayout>

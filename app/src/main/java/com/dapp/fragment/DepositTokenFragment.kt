@@ -99,10 +99,12 @@ class DepositTokenFragment : Fragment() {
     }
 
     private fun eventApproveDeposit() {
-        //0xc7A0df7b30B977258164546F92E2c93367Cd0374
+        /*//0xc7A0df7b30B977258164546F92E2c93367Cd0374
         //0x72491D3963b437ffc47563140a9BE8207Ff56e6F
         val transactionData = mapOf<String, Any>(
-            "data" to "0x5bfadb2400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+            "data" to "0x095ea7b300000000000000000000000049729aa559e42676b45f0d73740a0588c16d35df00000000000000000000000000000000000000000000000000470de4df820000",
+            "from" to "0x3060275f556f582256b6f60e654471c5471d347b",
+            "to" to "0x72491D3963b437ffc47563140a9BE8207Ff56e6F"
         )
         binding.btnApproveDepositToken.setOnClickListener {
             try {
@@ -124,7 +126,7 @@ class DepositTokenFragment : Fragment() {
                 }
             }
 
-            /*val contractAddress = binding.edtContractAddress.text.toString()
+            *//*val contractAddress = binding.edtContractAddress.text.toString()
             val amount = binding.edtAmount.text.toString()
 
             if (contractAddress != "" && amount != "") {
@@ -155,12 +157,12 @@ class DepositTokenFragment : Fragment() {
                     setPositiveButton("Cancel") { dialog, _ -> dialog.cancel() }
                     show()
                 }
-            }*/
-        }
+            }*//*
+        }*/
     }
 
     private fun eventDeposit() {
-        binding.btnDepositToken.setOnClickListener {
+        /*binding.btnDepositToken.setOnClickListener {
             val contractAddress = binding.edtContractAddress.text.toString()
             val amount = binding.edtAmount.text.toString()
 
@@ -171,7 +173,7 @@ class DepositTokenFragment : Fragment() {
                         BlockChain.BINANCE_SMART_CHAIN,
                         "0x72491D3963b437ffc47563140a9BE8207Ff56e6F",
                         1f,
-                        "0x49729Aa559e42676b45f0d73740a0588c16D35Df"
+                        "0x49729Aa559e42676b45f0d73740a0588c16D35Df,
                     )
                 } catch (e: Exception) {
                     val alertDialogBuilder = AlertDialog.Builder(requireContext())
@@ -193,11 +195,11 @@ class DepositTokenFragment : Fragment() {
                     show()
                 }
             }
-        }
+        }*/
     }
 
     private fun eventWithDraw() {
-        val transactionData = mapOf<String, Any>(
+        /*val transactionData = mapOf<String, Any>(
             "data" to "0x5bfadb2400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
         )
         binding.btnWithdraw.setOnClickListener {
@@ -219,6 +221,6 @@ class DepositTokenFragment : Fragment() {
                     show()
                 }
             }
-        }
+        }*/
     }
 }
